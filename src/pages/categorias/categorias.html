@@ -6,8 +6,17 @@
     <ion-title>categorias</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding>
-<p>Página de categorias</p>
+  <ion-list>
+    <button ion-item *ngFor="let item of items">
+      <ion-thumbnail item-start>
+        <!--Alterar parao bucket após conseguir o acesso ao S3
+        src="{{bucketUrl}}/cat{{item.id}}.jpg"
+        -->
+        <img src="assets/imgs/imagem-teste-categorias.png">
+      </ion-thumbnail>
+      <h2>{{item.nome}}</h2>
+    </button>
+  </ion-list>
 
 </ion-content>
