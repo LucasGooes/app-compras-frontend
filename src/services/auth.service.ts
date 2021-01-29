@@ -29,11 +29,11 @@ export class AuthService {
             token: tok,
             email: this.jwtHelper.decodeToken(tok).sub
         };
-        this.storage.setLocasUser(user);
+        this.storage.setLocalUser(user);
     }
 
     logout() {
-        this.storage.setLocasUser(null);
+        this.storage.setLocalUser(null);
     }
 
 }
