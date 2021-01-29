@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ClienteDTO } from '../../models/cliente.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
 import { StorageService } from '../../services/storage_service';
 
 /**
@@ -16,18 +18,35 @@ import { StorageService } from '../../services/storage_service';
 })
 export class ProfilePage {
 
-  email: string;
+  cliente: ClienteDTO;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public storage: StorageService) {
+    public storage: StorageService,
+    public clienteService: ClienteService) {
   }
 
   ionViewDidLoad() {
     let localUser = this.storage.getLocasUser();
     if (localUser && localUser.email) {
-      this.email = localUser.email;
+      this.clienteService.findByEmail(localUser.email)
+        .subscribe(response => {
+          this.cliente = response;
+          //BUSCAR IMAGEM DO BUCKET S3
+          //
+        },
+          error => { });
     }
   }
-
+/*METODO PARA BUSCAR IMAGEM DO CLIENTE NO BUCKET
+    QUANDO CONSEGUIR ACESSO AO S3
+getImageExists() {
+this.clienteService.getImageFromBucket(this.cliente.id)
+.subscribe(response => {
+this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
+},
+error => {}
+);
+}
+*/
 }
