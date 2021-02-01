@@ -33,20 +33,26 @@ export class ProfilePage {
         .subscribe(response => {
           this.cliente = response;
           //BUSCAR IMAGEM DO BUCKET S3
-          //
+          //this.getImageIfExists();
         },
-          error => { });
+          error => {
+            if (error.status == 403) {
+              this.navCtrl.setRoot('HomePage');
+            }
+          });
+    } else {
+      this.navCtrl.setRoot('HomePage');
     }
   }
-/*METODO PARA BUSCAR IMAGEM DO CLIENTE NO BUCKET
-    QUANDO CONSEGUIR ACESSO AO S3
-getImageExists() {
-this.clienteService.getImageFromBucket(this.cliente.id)
-.subscribe(response => {
-this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
-},
-error => {}
-);
-}
-*/
+  /*METODO PARA BUSCAR IMAGEM DO CLIENTE NO BUCKET
+      QUANDO CONSEGUIR ACESSO AO S3
+  getImageExists() {
+  this.clienteService.getImageFromBucket(this.cliente.id)
+  .subscribe(response => {
+  this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
+  },
+  error => {}
+  );
+  }
+  */
 }
