@@ -1,6 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
+import { API_CONFIG } from "../config/api.config";
 import { StorageService } from "../services/storage_service";
 
 @Injectable()
@@ -11,11 +12,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let localUser = this.storage.getLocalUser();
-        //let N = API_CONFIG.baseUrl.length;
-        //let requestToAPI = req.url.substring(0, N) == API_CONFIG.baseUrl;
-        if (localUser /*&& requestToAPI*/) {
-            console.log('passou aqui')
-            const authReq = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + localUser.token) });
+        let N = API_CONFIG.baseUrl.length;
+        let requestToAPI = req.url.substring(0, N) == API_CONFIG.baseUrl;
+        if (localUser && requestToAPI) {
+            const authReq = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + localUser.token)});
             return next.handle(authReq);
         } else {
             return next.handle(req);
