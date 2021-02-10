@@ -1,8 +1,8 @@
+import { API_CONFIG } from './../../config/api.config';
+import { ClienteDTO } from './../../models/cliente.dto';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
-import { API_CONFIG } from "../../config/api.config";
-import { ClienteDTO } from "../../models/cliente.dto";
 import { StorageService } from "../storage_service";
 
 @Injectable()
@@ -24,5 +24,15 @@ export class ClienteService {
         }   
     */
 
+    insert(obj: ClienteDTO) {
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/clientes`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
+    }
 
 }

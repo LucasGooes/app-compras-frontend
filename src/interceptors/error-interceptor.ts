@@ -1,3 +1,4 @@
+import { FieldMessage } from './../models/fieldmessage';
 import { StorageService } from './../services/storage_service';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -31,6 +32,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 403:
                         this.handle403();
                         break;
+                    case 422:
+                        this.handle422(errorObj);
+                        break;
                     default:
                         this.handleDefaultError(errorObj);
                 }
@@ -49,7 +53,19 @@ export class ErrorInterceptor implements HttpInterceptor {
             message: 'Email ou senha incorretos',
             enableBackdropDismiss: false,
             buttons: [
-                { text: 'OK' }
+                { text: 'Ok' }
+            ]
+        });
+        alert.present();
+    }
+
+    handle422(errorObj) {
+        let alert = this.alertController.create({
+            title: 'Erro 422: Validação',
+            message: this.listErrors(errorObj.errors),
+            enableBackdropDismiss: false,
+            buttons: [
+                { text: 'Ok' }
             ]
         });
         alert.present();
@@ -61,10 +77,18 @@ export class ErrorInterceptor implements HttpInterceptor {
             message: errorObj.message,
             enableBackdropDismiss: false,
             buttons: [
-                { text: 'ok' }
+                { text: 'Ok' }
             ]
         });
         alert.present();
+    }
+
+    private listErrors(messages: FieldMessage[]): string {
+        let s : string = '';
+        for (var i=0; i<messages.length; i++) {
+            s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>';
+        }
+        return s;
     }
 }
 
