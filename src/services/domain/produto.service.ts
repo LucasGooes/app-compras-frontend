@@ -12,4 +12,10 @@ export class ProdutoService {
         return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categoria_id}`);
     }
 
+    /*CODIGO PARA PEGAR A IMAGEM DO BUCKET S3
+    getSmallImageFromBucket(id: string) : Observable<any> {
+    let url = `${API_CONFIG.bucketBaseUrl}/prod${id}-small.jpg`
+    return this.http.get(url, {responseType : 'blob'});
+    }
+    */
 }
