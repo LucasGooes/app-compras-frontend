@@ -1,6 +1,6 @@
+import { ClienteDTO } from './../../models/cliente.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ClienteDTO } from '../../models/cliente.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
 import { StorageService } from '../../services/storage_service';
 
@@ -31,7 +31,7 @@ export class ProfilePage {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.cliente = response;
+          this.cliente = response as ClienteDTO;
           //BUSCAR IMAGEM DO BUCKET S3
           //this.getImageIfExists();
         },
