@@ -16,6 +16,10 @@ export class ClienteService {
         return this.http.get(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
 
+    findById(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clientes/${id}`);
+    }
+
     /* METODO PARA BUSCAR IMAGEM DO CLIENTE NO BUCKET
     QUANDO CONSEGUIR ACESSO AO S3
         getImageFromBucket(id : string) : Observable<any> {
