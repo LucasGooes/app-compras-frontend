@@ -5,8 +5,6 @@ import { EnderecoDTO } from './../../models/endereco.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StorageService } from '../../services/storage_service';
-import { templateJitUrl } from '@angular/compiler';
-
 @IonicPage()
 @Component({
   selector: 'page-pick-address',

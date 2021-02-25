@@ -2,7 +2,6 @@ import { API_CONFIG } from './../../config/api.config';
 import { ClienteDTO } from './../../models/cliente.dto';
 import { HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx";
 import { StorageService } from "../storage_service";
 
 @Injectable()
